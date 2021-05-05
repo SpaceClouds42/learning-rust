@@ -50,6 +50,10 @@ use a::b::e::f;
 
 Functions are defined by `fn function_name() { ... }`. To call a function: `function_name();`.
 
+Defining parameters: `fn do_something(x: i32, y: bool) { ... }`.
+
+Defining return type: `fn returns_something() -> i32 { ... }`. The final expression in a function block is the return value, eg. `{ 5 }` returns 5.
+
 Macros allow for different behavior for different parameters. To call a macro: `macro_name!();`. *The same as calling functions, plus an 
 exclamation mark after the macro name.*
 
@@ -73,10 +77,136 @@ Creates a new variable `foo` and binds it to the value of the `bar` variable. Un
 
 ### Associated Functions *(aka Static Methods)*
 
-```rust
-let mut guess = String::new();
-```
-
 Functions that are implemented on a type, **rather than a particular instance of the type**, are called with the `Type::function()` syntax.
 
 
+### Data Types
+
+```rust
+let foo: u32 = 100;
+```
+
+#### Scalar Types
+
+Integers, floating-point numbers, Booleans, and characters
+
+Integer types
+
+| Length  | Signed | Unsigned |
+|---------|--------|----------|
+| 8 bit   | i8     | u8       |
+| 16 bit  | i16    | u16      |
+| 32 bit  | i32    | u32      |
+| 64 bit  | i64    | u64      |
+| 128 bit | i128   | u128     |
+| arch    | isize  | usize    |
+
+`isize` and `usize` use the computer architecture's size (32bit/64bit).
+
+| Number literals | Example     |
+|-----------------|-------------|
+| Decimal         | 98_222      |
+| Hex             | 0xff        |
+| Octal           | 0o77        |
+| Binary          | 0b1111_0000 |
+| Byte (u8 only)  | b'A'        |
+
+Floating-point types
+
+```rust
+let foo: f32 = 3.0;
+```
+
+Boolean type
+
+```rust
+let f: bool = false;
+```
+
+Character Type
+
+```rust
+let x: char = 'x';
+```
+
+
+#### Compound Types
+
+Tuple type
+
+```rust
+let tup: (i32, f64, u8) = (500, 6.4, 1);
+
+// Destructuring
+let (x, y, z) = tup; // x = 500, y = 6.4, z = 1
+
+// Accessing by index
+let first = tup.0; // first = 500
+```
+
+Array type
+
+```rust
+let array: [i32; 5] = [1, 2, 3, 4, 5];
+
+let a = [3; 5]; // a = [3, 3, 3, 3, 3]
+
+// Accessing by index
+let first = array[0]; // first = 1
+```
+
+### Control Flow
+
+#### if
+
+```rust
+let number = 3;
+
+if number < 5 {
+	println!("true");
+} else {
+	println!("false");
+}
+```
+
+Can be used in a `let` statement by returning the value in the arms.
+
+```rust
+let condition = true;
+let number = if condition { 5 } else { 6 };
+```
+
+Both arms must return the same type!
+
+
+#### Loops
+
+```rust
+// infinite loop (break and continue can be used)
+loop {
+	println!("infinity and beyond!");
+}
+```
+
+`loop` blocks can return a value by adding a value after the `break` call. `let result = loop { break 10; };`, result = 10.
+
+```rust
+// conditional loop
+while number != 0 {
+	println!("number = {}", number);
+	number -= 1;
+}
+```
+
+```rust
+// iterating
+let a = [10, 20, 30, 40, 50];
+
+for element in a.iter() {
+	println!("val is {}", element);
+}
+
+for number in (1..4).rev() { // iterates through 1, 2, 3, but in reverse
+	println!("{}!", number);
+}
+```
